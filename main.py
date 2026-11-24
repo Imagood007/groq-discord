@@ -107,7 +107,7 @@ async def ask_ai(user_id: int, user_text: str, personality: str) -> str:
 
     response = await asyncio.to_thread(
         groq_client.chat.completions.create,
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-20b",
         messages=messages,
         max_tokens=400,
         temperature=1.0,
