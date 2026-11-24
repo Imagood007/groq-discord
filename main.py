@@ -113,7 +113,13 @@ async def ask_ai(user_id: int, user_text: str, personality: str) -> str:
         temperature=1.0,
     )
 
-    reply_text = response.choices[0].message.content.strip()
+    reply_text = (response.choices[0].message.content or "").strip()
+
+    if not reply_text:
+        reply_text = "..."
+
+    # Cap at Discord's message limit
+    reply_text = reply_text[:2000]
 
     # Add bot reply to history so next message has full context
     history.append({"role": "assistant", "content": reply_text})
